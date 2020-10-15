@@ -13,7 +13,7 @@ public class EmailRead {
 		int nextLetter;
 		
 		try (InputStreamReader in = new InputStreamReader(System.in)) {
-			// 13 is LF (pressing enter), 64 is @
+			// 13 is LF (pressing enter), 64 is @, this filters both IDs and emails
 			while ((nextLetter = in.read()) != 13 && nextLetter != 64) {
 				email.append((char) nextLetter);
 			}
@@ -29,18 +29,18 @@ public class EmailRead {
 		URL site = new URL(url);
 		URLConnection connection = site.openConnection();
 		BufferedReader in = new BufferedReader(
-								new InputStreamReader(
-										connection.getInputStream()));
+					new InputStreamReader(
+						connection.getInputStream()));
 		
 		String input = "";
 		int count = 0;
-		
+		// cheating it a bit here, info appears on line 7
 		while((input = in.readLine()) != null && count != 7) {
 			count++;
 		}
 		
 		in.close();
-		
+		// getting the name between <title> and '|'
 		return input.substring(input.indexOf('>')+1, input.indexOf('|'));
 	}
 	
